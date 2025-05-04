@@ -11,8 +11,8 @@ Item {
 
     property var color: light
     property int theme: Style.Theme.Light
-    property alias image: picture
-    property alias fonts: fontStyle
+    // property alias image: picture
+    // property alias fonts: fontStyle
 
     StyleLight{ id: light }
     StyleDark{ id: dark }

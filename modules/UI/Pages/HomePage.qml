@@ -1,7 +1,7 @@
 import QtQuick
-import Assets
+import UI.Assets
 Item {
     Component.onCompleted: {
-        console.log(Style.fuck)
+        console.log(Style.size4)
     }
 }

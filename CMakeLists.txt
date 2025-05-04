@@ -4,27 +4,29 @@ project(MoneyTogether VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
+set(QT_QML_GENERATE_QMLLS_INI OFF)
 
 find_package(Qt6 REQUIRED COMPONENTS Gui Quick REQUIRED)
 
-qt_standard_project_setup(REQUIRES 6.8)
+qt_standard_project_setup(REQUIRES 6.9)
 
 qt_add_executable(appMoneyTogether
     main.cpp
 )
 
-set(QT_QML_GENERATE_QMLLS_INI OFF)
 qt_add_qml_module(appMoneyTogether
     URI MoneyTogether
     VERSION 1.0
     QML_FILES
     Main.qml
-    Pages/HomePage.qml
 )
 
-add_subdirectory(Assets)
-add_subdirectory(Components)
+add_subdirectory(modules/UI)
+add_subdirectory(modules/Core)
+add_subdirectory(modules/Models)
+add_subdirectory(modules/Data)
+add_subdirectory(modules/Auth)
+add_subdirectory(modules/Sync)
 
 # set(QML_IMPORT_PATH "${CMAKE_SOURCE_DIR}/qml")
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -40,7 +42,7 @@ set_target_properties(appMoneyTogether PROPERTIES
 )
 
 target_link_libraries(appMoneyTogether
-    PRIVATE Qt6::Gui Qt6::Quick AssetsLibplugin
+    PRIVATE Qt6::Gui Qt6::Quick Assets Components Pages
 )
 
 install(TARGETS appMoneyTogether
