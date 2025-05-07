@@ -1,5 +1,9 @@
-import QtQuick 2.15
+import QtQuick
+import UI.Assets
 
-Item {
-
+Rectangle {
+    Component.onCompleted: console.log("MButton created, Style test: ", Style.size4)
+    height: 40
+    width: 40
+    color: "yellow"
 }
