@@ -1,5 +1,6 @@
 import QtQuick
 import UI.Pages
+import UI.Components
 import UI.Assets
 
 Window {
@@ -7,6 +8,7 @@ Window {
     height: 480
     visible: true
     HomePage {
+        anchors.fill: parent
         // MButton {
 
         // }

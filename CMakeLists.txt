@@ -14,6 +14,8 @@ qt_add_executable(appMoneyTogether
     main.cpp
 )
 
+set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
 qt_add_qml_module(appMoneyTogether
     URI MoneyTogether
     VERSION 1.0
@@ -32,7 +34,6 @@ set(QML_IMPORT_PATH
     ${CMAKE_BINARY_DIR}/qml
     CACHE STRING "" FORCE
 )
-set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/qml)
 
 # set(QML_IMPORT_PATH "${CMAKE_SOURCE_DIR}/qml")
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -48,7 +49,7 @@ set_target_properties(appMoneyTogether PROPERTIES
 )
 
 target_link_libraries(appMoneyTogether
-    PRIVATE Qt6::Gui Qt6::Quick Assets Components Pages
+    PRIVATE Qt6::Gui Qt6::Quick
 )
 
 install(TARGETS appMoneyTogether

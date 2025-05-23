@@ -1,9 +1,12 @@
 import QtQuick
+import QtQuick.Controls
 import UI.Assets
 
-Rectangle {
+Button {
     Component.onCompleted: console.log("MButton created, Style test: ", Style.size4)
-    height: 40
-    width: 40
-    color: "yellow"
+    Text {
+        id: txt
+        anchors.centerIn: parent
+        text: "Modules works."
+    }
 }
