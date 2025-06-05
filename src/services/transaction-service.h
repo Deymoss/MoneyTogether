@@ -3,11 +3,11 @@
 
 #include <QObject>
 
-class ConflictResolver : public QObject
+class TransactionService : public QObject
 {
     Q_OBJECT
 public:
-    ConflictResolver();
+    TransactionService();
 };
 
 #endif // CONFLICT-RESOLVER_H

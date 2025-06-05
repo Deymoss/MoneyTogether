@@ -1,0 +1,5 @@
+add_subdirectory(common)
+add_subdirectory(models) 
+add_subdirectory(persistence)
+add_subdirectory(services)
+add_subdirectory(controllers)
