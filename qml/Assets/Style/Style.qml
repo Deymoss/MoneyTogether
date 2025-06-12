@@ -9,13 +9,13 @@ Item {
         Dark
     }
 
-    // property var color: light
+    property var color: light
     property int theme: Style.Theme.Light
     // property alias image: picture
     // property alias fonts: fontStyle
 
-    // StyleLight{ id: light }
-    // StyleDark{ id: dark }
+    StyleLight{ id: light }
+    StyleDark{ id: dark }
     // Picture{ id: picture}
     // FontStyle{ id: fontStyle}
 
@@ -71,22 +71,23 @@ Item {
     readonly property int size250: dp(250)
     readonly property int size280: dp(280)
     readonly property int size300: dp(300)
+    readonly property int size320: dp(320)
     readonly property int size400: dp(400)
     readonly property int size450: dp(450)
     readonly property int size500: dp(500)
     readonly property int size600: dp(600)
     readonly property int size750: dp(750)
 
-    // function set(type){
-    //     if(type === Style.Theme.Light){
-    //         theme = Style.Theme.Light
-    //         root.color = light
-    //     }
-    //     else if(type === Style.Theme.Dark){
-    //         theme = Style.Theme.Dark
-    //         root.color = dark
-    //     }
-    // }
+    function set(type){
+        if(type === Style.Theme.Light){
+            theme = Style.Theme.Light
+            root.color = light
+        }
+        else if(type === Style.Theme.Dark){
+            theme = Style.Theme.Dark
+            root.color = dark
+        }
+    }
 
     property real dpi: Screen.pixelDensity * 25.4
 

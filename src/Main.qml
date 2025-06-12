@@ -4,8 +4,8 @@ import UI.Components
 import UI.Assets
 
 Window {
-    width: 640
-    height: 480
+    width: 360
+    height: 800
     visible: true
     HomePage {
         anchors.fill: parent

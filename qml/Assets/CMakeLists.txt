@@ -1,4 +1,4 @@
-set_source_files_properties(Strings.qml Style/Style.qml Style/StyleBase.qml Style/StyleDark.qml Style/StyleLight.qml PROPERTIES
+set_source_files_properties(Strings.qml Style/Style.qml PROPERTIES
     QT_QML_SINGLETON_TYPE TRUE
 )
 

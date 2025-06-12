@@ -1,12 +1,25 @@
 import QtQuick
-import QtQuick.Controls
 import UI.Assets
 
-Button {
-    Component.onCompleted: console.log("MButton created, Style test: ", Style.size4)
+Rectangle {
+    property string backgroundColor: Style.color.labelPrimary
+    property string borderColor: Style.color.backgroundSecondary
+    property bool bordered: true
+    property alias label: txt
+
+    color: backgroundColor
+    border.color: borderColor
+    border.width: bordered ? 2 : 0
+    radius: 0
+
     Text {
         id: txt
         anchors.centerIn: parent
-        text: "Modules works."
+        text: ""
+    }
+
+    MouseArea {
+        anchors.fill: parent
+
     }
 }

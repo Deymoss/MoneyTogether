@@ -6,7 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(QT_QML_GENERATE_QMLLS_INI ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Gui Quick REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Gui Quick Graphs REQUIRED)
 
 qt_standard_project_setup(REQUIRES 6.9)
 
@@ -69,12 +69,13 @@ target_link_libraries(appMoneyTogether
         #Qt6::Gui
         Qt6::Quick
         Qt6::Core
+        Qt6::Graphs
         Common
-        Persistence 
-        Controllers 
-	Domain
-	QtModels
-	Services
+        Persistence
+        Controllers
+        Domain
+        QtModels
+        Services
         Assets
         Components
         Pages
