@@ -5,6 +5,7 @@ project(MoneyTogether VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(QT_QML_GENERATE_QMLLS_INI ON)
+set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Gui Quick Graphs REQUIRED)
 
@@ -49,6 +50,9 @@ qt_add_qml_module(appMoneyTogether
         Pages
     QML_FILES
         src/Main.qml
+    RESOURCES
+        res/images/ic_arrow_expand.png
+        res/images/ic_edit.png
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

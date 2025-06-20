@@ -40,6 +40,7 @@ Item {
             width: parent.width / 2
             height: parent.height
             text: root.leftName
+            font.pointSize: 12
         }
 
         Text {
@@ -54,6 +55,7 @@ Item {
             width: parent.width / 2
             height: parent.height
             text: root.rightName
+            font.pointSize: 12
         }
 
         MouseArea {
@@ -98,7 +100,7 @@ Item {
                     NumberAnimation {
                         target: innerRect
                         property: "width"
-                        to: outerRect.width
+                        to: outerRect.width - 10
                         duration: 100
                         easing.type: Easing.Linear
                     }
@@ -149,7 +151,7 @@ Item {
                         NumberAnimation {
                             target: innerRect
                             property: "width"
-                            to: outerRect.width
+                            to: outerRect.width - 10
                             duration: 100
                             easing.type: Easing.Linear
                         }

@@ -89,9 +89,14 @@ Item {
         }
     }
 
-    property real dpi: Screen.pixelDensity * 25.4
+    readonly property bool isDesktop:
+        Qt.platform.os === "windows" || Qt.platform.os === "macos" || Qt.platform.os === "linux"
 
-    function dp(size){
-            return size*(dpi/160);
+    readonly property real scaleFactor: isDesktop ? 1.7 : 1.0
+
+    readonly property real dpi: Screen.pixelDensity * 25.4
+
+    function dp(size) {
+        return size * (dpi / 160) * scaleFactor
     }
 }

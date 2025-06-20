@@ -6,4 +6,5 @@ qt_add_qml_module(Components
 	MImageButton.qml
 	MSlider.qml
         QML_FILES MSlideButton.qml
+        QML_FILES MTextButton.qml
 )
