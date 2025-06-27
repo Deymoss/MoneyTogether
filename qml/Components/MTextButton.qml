@@ -12,7 +12,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-
+        color: "transparent"
         Text {
             id: label
             anchors {
@@ -31,7 +31,7 @@ Item {
             fillMode: Image.PreserveAspectFit
             anchors {
                 left: label.right
-                verticalCenter: label.verticalCenter
+                bottom: label.baseline
                 leftMargin: Style.size4
             }
             source: root.image

@@ -16,7 +16,7 @@ StyleBase {
 
     backgroundPrimary: '#181818'
     backgroundSecondary: '#222222'
-    backgroundTetriary: '#292929'
+    backgroundTetriary: '#282D2D'
     backgroundQuaternary: '#3f3f41'
     backgroundFifth: '#636363'
     grid: '#383838'
