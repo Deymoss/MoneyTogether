@@ -46,14 +46,30 @@ Item {
         height: Style.size48
         width: Style.size320
         backgroundRadius: Style.size16
-        leftName: "Доходы"
-        rightName: "Расходы"
+        buttonModel: ['1','2']
+        // leftName: "Доходы"
+        // rightName: "Расходы"
+    }
+
+    MSlideButton {
+        id: categoryTransactionButton
+        anchors {
+            top: categoryButton.bottom
+            topMargin: Style.size24
+            horizontalCenter: parent.horizontalCenter
+        }
+        height: Style.size48
+        width: Style.size320
+        backgroundRadius: Style.size16
+        buttonModel: ['1','2','3','4','5']
+        // leftName: "Доходы"
+        // rightName: "Расходы"
     }
 
     GraphsView {
         id: overallGraph
         anchors {
-            top: categoryButton.bottom
+            top: categoryTransactionButton.bottom
             horizontalCenter: parent.horizontalCenter
             topMargin: Style.size28
         }
