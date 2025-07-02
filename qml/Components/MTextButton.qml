@@ -18,7 +18,7 @@ Item {
             anchors {
                 top: parent.top
             }
-            font.pointSize: 14
+            font.pixelSize: Style.size14
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             text: root.text

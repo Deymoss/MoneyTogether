@@ -29,7 +29,7 @@ Item {
             horizontalCenter: parent.horizontalCenter
         }
         label.text: "3458 BYN"
-        label.font.pointSize: Style.size14
+        label.font.pixelSize: Style.size16
         label.font.weight: 500
         icon.height: Style.size12
         icon.width: Style.size12
@@ -38,36 +38,36 @@ Item {
 
     MSlideButton {
         id: categoryButton
+        height: Style.size48
+        width: Style.size320
         anchors {
             top: amountButton.bottom
             topMargin: Style.size24
             horizontalCenter: parent.horizontalCenter
         }
-        height: Style.size48
-        width: Style.size320
         backgroundRadius: Style.size16
-        buttonModel: ['1','2']
-        // leftName: "Доходы"
-        // rightName: "Расходы"
+        textSize: Style.size16
+        buttonModel: ['Расходы', 'Доходы']
     }
 
     MSlideButton {
         id: categoryTransactionButton
+        height: Style.size30
+        width: Style.size320
         anchors {
             top: categoryButton.bottom
             topMargin: Style.size24
             horizontalCenter: parent.horizontalCenter
         }
-        height: Style.size48
-        width: Style.size320
-        backgroundRadius: Style.size16
-        buttonModel: ['1','2','3','4','5']
-        // leftName: "Доходы"
-        // rightName: "Расходы"
+        textSize: Style.size13
+        backgroundRadius: Style.size8
+        buttonModel: ['День','Неделя','Месяц','Год','Период']
     }
 
     GraphsView {
         id: overallGraph
+        height: Style.size320
+        width: Style.size320
         anchors {
             top: categoryTransactionButton.bottom
             horizontalCenter: parent.horizontalCenter
@@ -77,8 +77,6 @@ Item {
             colorScheme: GraphsTheme.ColorScheme.Dark
             backgroundColor: "transparent"
         }
-        height: Style.size320
-        width: Style.size320
 
         PieSeries {
             id: pieOuter
@@ -107,6 +105,7 @@ Item {
             }
         }
     }
+
     Rectangle {
         anchors.centerIn: overallGraph
         width: Style.size120

@@ -8,9 +8,8 @@ Item {
     property int currentState: 0
     property int backgroundRadius: Style.size16
     property int margins: Style.size4
-    property var buttonModel
-    // required property string leftName
-    // required property string rightName
+    property int textSize: Style.size12
+    required property var buttonModel
 
     Rectangle {
         id: outerRect
@@ -19,54 +18,65 @@ Item {
         radius: root.backgroundRadius
         color: root.secondaryColor
 
-        ListView {
-            id: listView
-            model: root.buttonModel
-            orientation: ListView.Horizontal
-            highlightFollowsCurrentItem: true
+        Item {
             anchors {
                 fill: parent
+                margins: root.margins
             }
-            spacing: 0
+            Rectangle {
+                id: highlightRect
+                x: listView.x
+                width: root.width / buttonModel.length
+                height: parent.height
+                anchors.verticalCenter: parent.verticalCenter
+                radius: root.backgroundRadius - root.margins/2
+                color: root.primaryColor
+            }
 
-            onCurrentItemChanged: {
+            ListView {
+                id: listView
+                anchors {
+                    fill: parent
+                }
+                orientation: ListView.Horizontal
+                model: root.buttonModel
+                highlightFollowsCurrentItem: true
+                spacing: 0
 
-                const item = listView.currentItem
+                onCurrentItemChanged: {
+                    const item = listView.currentItem
                     if (!item) return
 
-                    const itemX = item.x
-                    const itemW = item.width
                     const currentX = highlightRect.x
                     const currentW = highlightRect.width
 
-                    if (itemX > currentX) {
-                        leftAnim.leftWidthPhase1 = (itemX + itemW) - currentX
-                        leftAnim.leftXPhase2 = itemX
-                        leftAnim.leftWidthPhase2 = itemW
-
+                    if (item.x > currentX) {
+                        leftAnim.leftWidthPhase1 = (item.x + item.width) - currentX
+                        leftAnim.leftXPhase2 = item.x
+                        leftAnim.leftWidthPhase2 = item.width
                         leftAnim.stop()
                         leftAnim.start()
-                    } else {
-                        rightAnim.rightXPhase1 = itemX
-                        rightAnim.rightWidthPhase1 = (currentX + currentW) - itemX
-                        rightAnim.rightWidthPhase2 = itemW
-
+                    } else if(item.x < currentX) {
+                        rightAnim.rightXPhase1 = item.x
+                        rightAnim.rightWidthPhase1 = (currentX + currentW) - item.x
+                        rightAnim.rightWidthPhase2 = item.width
                         rightAnim.stop()
                         rightAnim.start()
                     }
-            }
-            delegate: Rectangle {
-                    width: outerRect.width / listView.count
-                    height: outerRect.height
+                }
+
+                delegate: Rectangle {
+                    width: listView.width / listView.count
+                    height: listView.height
                     color: "transparent"
-                    z: 2
 
                     Text {
                         anchors.centerIn: parent
                         text: modelData
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
                         color: listView.currentIndex === index ? "black" : "white"
-                        font.pointSize: 12
-                        z:3
+                        font.pixelSize: textSize
                         Behavior on color {
                             ColorAnimation { duration: 150 }
                         }
@@ -78,100 +88,70 @@ Item {
                     }
                 }
 
-            Rectangle {
-                id: highlightRect
-                x: listView.x
-                width: root.width / listView.count
-                height: parent.height
-                anchors.verticalCenter: parent.verticalCenter
-                radius: root.backgroundRadius - root.margins/2
-                color: root.primaryColor
-                z:1
-            }
+                SequentialAnimation {
+                    id: leftAnim
+                    property real leftWidthPhase1: 0
+                    property real leftXPhase2: 0
+                    property real leftWidthPhase2: 0
 
-            SequentialAnimation {
-                id: leftAnim
-                property real leftWidthPhase1: 0
-                property real leftXPhase2: 0
-                property real leftWidthPhase2: 0
-
-                NumberAnimation {
-                    target: highlightRect
-                    property: "width"
-                    to: leftAnim.leftWidthPhase1 //listView.currentItem.x + listView.currentItem.x.width - highlightRect.x
-                    duration: 100
-                    easing.type: Easing.Linear
-                }
-
-                ParallelAnimation {
                     NumberAnimation {
                         target: highlightRect
-                        property: "x"
-                        to: leftAnim.leftXPhase2//listView.currentItem.x
-                        duration: 100
+                        property: "width"
+                        to: leftAnim.leftWidthPhase1
+                        duration: 150
                         easing.type: Easing.Linear
+                    }
+
+                    ParallelAnimation {
+                        NumberAnimation {
+                            target: highlightRect
+                            property: "x"
+                            to: leftAnim.leftXPhase2
+                            duration: 150
+                            easing.type: Easing.Linear
+                        }
+
+                        NumberAnimation {
+                            target: highlightRect
+                            property: "width"
+                            to: leftAnim.leftWidthPhase2
+                            duration: 150
+                            easing.type: Easing.Linear
+                        }
+                    }
+                }
+
+                SequentialAnimation {
+                    id: rightAnim
+                    property real rightWidthPhase1: 0
+                    property real rightXPhase1: 0
+                    property real rightWidthPhase2: 0
+
+                    ParallelAnimation {
+                        NumberAnimation {
+                            target: highlightRect
+                            property: "x"
+                            to: rightAnim.rightXPhase1
+                            duration: 150
+                            easing.type: Easing.Linear
+                        }
+
+                        NumberAnimation {
+                            target: highlightRect
+                            property: "width"
+                            to: rightAnim.rightWidthPhase1
+                            duration: 150
+                            easing.type: Easing.Linear
+                        }
                     }
 
                     NumberAnimation {
                         target: highlightRect
                         property: "width"
-                        to: leftAnim.leftWidthPhase2//listView.currentItem.width
-                        duration: 100
+                        to: rightAnim.rightWidthPhase2
+                        duration: 150
                         easing.type: Easing.Linear
                     }
-
-                    // ColorAnimation {
-                    //     target: rightText
-                    //     from: root.primaryColor
-                    //     duration: 150
-                    // }
-                    // ColorAnimation {
-                    //     target: leftText
-                    //     from: root.secondaryColor
-                    //     duration: 150
-                    // }
-                }
-            }
-            SequentialAnimation {
-                id: rightAnim
-                property real rightWidthPhase1: 0
-                property real rightXPhase1: 0
-                property real rightWidthPhase2: 0
-                ParallelAnimation {
-                    NumberAnimation {
-                        target: highlightRect
-                        property: "x"
-                        to: rightAnim.rightXPhase1 //listView.currentItem.x
-                        duration: 100
-                        easing.type: Easing.Linear
-                    }
-                    NumberAnimation {
-                        target: highlightRect
-                        property: "width"
-                        to: rightAnim.rightWidthPhase1 //highlightRect.x + highlightRect.width - listView.currentItem.x
-                        duration: 100
-                        easing.type: Easing.Linear
-                    }
-                }
-
-                ParallelAnimation {
-                    // ColorAnimation {
-                    //     target: rightText
-                    //     from: root.secondaryColor
-                    //     duration: 150
-                    // }
-                    NumberAnimation {
-                        target: highlightRect
-                        property: "width"
-                        to: rightAnim.rightWidthPhase2 //listView.currentItem.width
-                        duration: 100
-                        easing.type: Easing.Linear
-                    }
-                    // ColorAnimation {
-                    //     target: leftText
-                    //     from: root.primaryColor
-                    //     duration: 150
-                    // }
                 }
             }
         }

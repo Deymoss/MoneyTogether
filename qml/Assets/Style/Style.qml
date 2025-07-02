@@ -30,6 +30,7 @@ Item {
     readonly property int size9: dp(9)
     readonly property int size10: dp(10)
     readonly property int size12: dp(12)
+    readonly property int size13: dp(13)
     readonly property int size14: dp(14)
     readonly property int size15: dp(15)
     readonly property int size16: dp(16)
