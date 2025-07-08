@@ -4,7 +4,7 @@ import UI.Assets
 Rectangle {
     property string backgroundColor: Style.color.labelPrimary
     property string borderColor: Style.color.backgroundSecondary
-    property bool bordered: true
+    property bool bordered: false
     property alias label: txt
 
     color: backgroundColor
@@ -20,6 +20,5 @@ Rectangle {
 
     MouseArea {
         anchors.fill: parent
-
     }
 }
