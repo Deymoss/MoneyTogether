@@ -59,6 +59,33 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
             Item {
+                id: pageRoot
+                function highlightSliceByIndex(sliceIndex) {
+                    if (sliceIndex < 0 || sliceIndex >= pieOuter.count) {
+                        console.warn("Неверный индекс сектора:", sliceIndex);
+                        return;
+                    }
+
+                    const targetSlice = pieOuter.at(sliceIndex);
+
+                    for (let i = 0; i < pieOuter.count; ++i) {
+                        pieOuter.at(i).exploded = (pieOuter.at(i) === targetSlice);
+                    }
+
+                    const centerAngle = targetSlice.startAngle + targetSlice.angleSpan / 2;
+                    const targetRotation = -90 - centerAngle;
+
+                    rotationAnim.to = targetRotation;
+                    rotationAnim.start();
+                }
+
+                function resetHighlight() {
+                    rotationAnim.to = 0;
+                    rotationAnim.start();
+                    for (let i = 0; i < pieOuter.count; ++i) {
+                        pieOuter.at(i).exploded = false;
+                    }
+                }
                 GraphsView {
                     id: overallGraph
                     height: Style.size320
@@ -72,10 +99,26 @@ Item {
                         backgroundColor: "transparent"
                     }
 
+                    RotationAnimation {
+                        id: rotationAnim
+                        target: overallGraph
+                        duration: 600
+                        easing.type: Easing.InOutCubic
+                        direction: RotationAnimation.Shortest
+                    }
+
                     PieSeries {
                         id: pieOuter
                         pieSize: 0.96
                         holeSize: 0.6
+                        onClicked: (slice) => {
+                                       for(let i=0; i < pieOuter.count; ++i) {
+                                           if (pieOuter.at(i) === slice) {
+                                               pageRoot.highlightSliceByIndex(i);
+                                               break;
+                                           }
+                                       }
+                                   }
                         PieSlice {
                             label: "Alpha"
                             borderWidth: 2
@@ -115,20 +158,39 @@ Item {
                         color: Style.color.labelPrimary
                         text: "275 BYN"
                     }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            rotationAnim.to = 0
+                            rotationAnim.start()
+
+                            for (let i = 0; i < pieOuter.count; ++i) {
+                                pieOuter.at(i).exploded = false
+                            }
+                        }
+                    }
                 }
 
                 ListView {
                     id: categoriesTrans
-                    width: Style.size320
+                    width: Style.size360
+                    spacing: Style.size8
+                    clip: true
                     anchors {
                         top: overallGraph.bottom
                         bottom: parent.bottom
                         horizontalCenter: parent.horizontalCenter
                     }
 
-                    model: ['1','2','3','4','1','2','3','4','1','2','3','4','1','2','3','4','1','2','3','4','1','2','3','4']
-                    delegate: Text{
-                        text: modelData
+                    model: ['Одежда','Одежда','Одежда','Одежда','Одежда','2','3','4','1','2','3','4','1','2','3','4','1','2','3','4','1','2','3','4']
+                    delegate: MTransactionButton {
+                        height: Style.size40
+                        width: Style.size350
+                        area.onClicked: {
+                            pageRoot.highlightSliceByIndex(index);
+                        }
+
+                        label.text: "Одежда"
                     }
                 }
             }

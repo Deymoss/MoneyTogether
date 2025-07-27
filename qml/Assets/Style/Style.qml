@@ -73,6 +73,8 @@ Item {
     readonly property int size280: dp(280)
     readonly property int size300: dp(300)
     readonly property int size320: dp(320)
+    readonly property int size350: dp(350)
+    readonly property int size360: dp(360)
     readonly property int size400: dp(400)
     readonly property int size450: dp(450)
     readonly property int size500: dp(500)
